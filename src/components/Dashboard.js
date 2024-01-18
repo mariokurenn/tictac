@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton';
-import AuthTabs from './AuthTabs'; // Uvezi AuthTabs komponentu
+import AuthTabs from './AuthTabs';
 import Avatar from '@mui/material/Avatar';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
-
 import { useTheme } from '@mui/material/styles';
+import TicTacToeGame from './TicTacToeGame'; // Import the TicTacToeGame component
 
 const Dashboard = ({ setLoggedIn }) => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const [showGame, setShowGame] = useState(false); // State to toggle showing the TicTacToeGame
 
   useEffect(() => {
     // Provjeri je li korisnik ulogiran
@@ -27,8 +28,14 @@ const Dashboard = ({ setLoggedIn }) => {
     setLoggedIn(false);
     navigate('/');
   };
-    // Dodaj deklaraciju tokena ovdje kako bi bio dostupan u JSX-u
-    const token = localStorage.getItem('token');
+
+  const handleNewGame = () => {
+    // Set the state to show the TicTacToeGame component
+    setShowGame(true);
+  };
+
+  // Dodaj deklaraciju tokena ovdje kako bi bio dostupan u JSX-u
+  const token = localStorage.getItem('token');
 
   return (
     <div style={{ padding: theme.spacing(3) }}>
@@ -44,8 +51,13 @@ const Dashboard = ({ setLoggedIn }) => {
           {token ? <LogoutButton setLoggedIn={setLoggedIn} /> : <AuthTabs />}
         </Grid>
       </Grid>
-   
+
       <h1>Welcome to the Dashboard!</h1>
+
+      <button onClick={handleNewGame}>Nova igra</button>
+
+      {/* Conditionally render the TicTacToeGame component */}
+      {showGame && <TicTacToeGame token={token} />}
     </div>
   );
 };

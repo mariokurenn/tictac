@@ -31,7 +31,7 @@ const GameList = () => {
   return (
     <div>
       <Typography variant="h5" color="initial" sx={{color:'white', mt:'2rem'}}>Online servers:</Typography>
-      <List sx={{display: 'flex', justifyContent: 'flex-start', gap: '2rem', width: '100%'}}>
+      <List sx={{display: 'flex', justifyContent: 'flex-start', flexWrap:'wrap', gap: '2rem', width: '100%'}}>
         {games.results.map(game => (
           game.status === 'open' && (
             <div key={game.id} style={{maxWidth:'235px'}}>

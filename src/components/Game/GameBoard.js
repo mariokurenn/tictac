@@ -10,7 +10,7 @@ const GameBoard = ({ board, handleCellClick, firstPlayer, secondPlayer, game, se
           </Typography>
     </div>
     <div style={{display: 'flex', alignItems: 'center', marginTop: '1rem', marginBottom: '1rem'}}>
-          <Avatar alt="User Avatar" sx={{mr:1}} src="https://i.pravatar.cc/300/300" />
+          <Avatar alt="User Avatar" sx={{mr:1}} src="https://cataas.com/cat?type=square" />
           <Typography variant="body2" color="text.secondary" className='white'>
           Player 2: {secondPlayer ? secondPlayer.username : 'Waiting for player...'}
           </Typography>

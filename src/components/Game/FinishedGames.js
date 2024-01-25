@@ -69,7 +69,7 @@ const handleClose = () => {
           </Typography>
           <Typography variant="body5" color="text.secondary" className='white' sx={{display:'flex'}}>
           <FiberManualRecordIcon style={{ color: 'green' }} />
-            Winner: {game.winner ? game.winner.username : 'No winner yet'}
+            Winner: {game.winner ? game.winner.username : 'Draw!'}
           </Typography>
          
           <div style={{display: 'flex', alignItems: 'center', marginTop: '1rem', marginBottom: '1rem'}}>

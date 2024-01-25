@@ -18,7 +18,7 @@ const FinishedGameBoard = ({ game }) => {
           </Typography>
         </div>
         <div style={{display: 'flex', alignItems: 'center', marginTop: '1rem', marginBottom: '1rem'}}>
-          <Avatar alt="User Avatar" sx={{mr:1}} src="https://i.pravatar.cc/300/300" />
+          <Avatar alt="User Avatar" sx={{mr:1}} src="https://cataas.com/cat?type=square" />
           <Typography variant="body2" >
             Player 2 (O): {second_player ? second_player.username : 'Unknown'}
           </Typography>

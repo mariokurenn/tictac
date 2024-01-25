@@ -11,8 +11,10 @@ import JoinGame from './Game/JoinGame';
 import GameList from './Game/GameList';
 import CreateGameButton from './Game/CreateGameButton';
 import FinishedGames from './Game/FinishedGames';
-import video from '../media/background.mp4';
-import Statistics from './Game/Statistics';
+
+
+
+
 const Dashboard = ({ setLoggedIn }) => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -44,7 +46,7 @@ const Dashboard = ({ setLoggedIn }) => {
 
   return (
     <div style={{ padding: theme.spacing(5)}}>
-      <video src={video} autoPlay muted loop className='video-background'></video>
+    
       <Grid container mb={4} spacing={1} alignItems="center" className='glassmorphism'>
         <Grid item xs={5} style={{ display: 'flex', alignItems: 'center',  }}>
           <Avatar alt="User Avatar" src="https://i.pravatar.cc/300/300" />
@@ -54,7 +56,7 @@ const Dashboard = ({ setLoggedIn }) => {
           <CreateGameButton onClick={handleCreateGameClick} />
         </Grid>
         <Grid item xs={2}>
-          <Statistics setGame={setGame} />
+  
         </Grid>
         <Grid item xs={2} >
           {token ? (
@@ -70,6 +72,7 @@ const Dashboard = ({ setLoggedIn }) => {
       {showTicTacToe && token && <TicTacToeGame token={token} />}
       <JoinGame />
       <GameList />
+
       <FinishedGames />
     </div>
   );

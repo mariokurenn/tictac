@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
 import { useNavigate } from "react-router-dom";
 
+import { Alert, Typography,Box,Container,TextField,Button} from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/Warning';
 const Register = ({ setLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,26 +36,18 @@ const Register = ({ setLoggedIn }) => {
       clearTimeout(timeoutId);
 
       if (response.ok) {
-        const data = await response.json();
-
-        if (data.success) {
-          // Registration successful, obtain the token
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
           const authToken = data.token;
-
-          // Store the token in local storage
           localStorage.setItem('token', authToken);
-
-          // Set the logged-in state to true
           setLoggedIn(true);
 
-          // Redirect the user to the dashboard
-        
-       
         } else {
-          alert('Došlo je do greške.');
+          setShowSuccessAlert(true);
         }
       } else {
-        alert('Došlo je do greške na serveru.');
+        setShowErrorAlert(true);
       }
     } catch (error) {
       console.error('Error during fetch:', error);
@@ -70,8 +64,8 @@ const Register = ({ setLoggedIn }) => {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
-          Registracija
+        <Typography component="h1" variant="h5" className='white'>
+          Register now
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -79,11 +73,32 @@ const Register = ({ setLoggedIn }) => {
             required
             fullWidth
             id="username"
-            label="Korisničko ime"
+            label="Username"
             name="username"
             autoComplete="username"
             autoFocus
             value={username}
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+                "& fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: 'white',
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: 'white',
+              },
+              "& input": {
+                color: "white",
+              },
+            }}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
@@ -91,18 +106,49 @@ const Register = ({ setLoggedIn }) => {
             required
             fullWidth
             name="password"
-            label="Lozinka"
+            label="Password"
             type="password"
             id="password"
             autoComplete="new-password"
             value={password}
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+                "& fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: 'white',
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: 'white',
+              },
+              "& input": {
+                color: "white",
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
    
-          <Button type="submit" variant="outlined">
-            Registracija
+          <Button type="submit" variant="outlined" sx={{borderColor: 'white', color: 'white', mt:2}}>
+            Register
           </Button>
         </Box>
+        {showSuccessAlert && (
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{marginTop:'2rem', marginLeft:'-1.4rem'}}>
+            Registration was successful. You can login now.
+          </Alert>
+        )}
+        {showErrorAlert && (
+          <Alert icon={<WarningIcon fontSize="inherit" />} severity="error" sx={{marginTop:'2rem', marginLeft:'-5rem'}}>
+            There was an error during registration.
+          </Alert>
+        )}
       </Box>
     </Container>
   );

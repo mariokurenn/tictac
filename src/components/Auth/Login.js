@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Alert, Typography,Box,Container,TextField,Button} from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/Warning';
+
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false); // Add this line
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,15 +41,19 @@ const Login = ({ setIsLoggedIn }) => {
   
       if (data.token) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("username", data.username); // Store the username in local storage
+        localStorage.setItem("username", data.username);
   
-        alert(`Uspješno ste logirani kao ${data.username}!`);
         setUsername("");
         setPassword("");
         setIsLoggedIn(true);
-        navigate('/dashboard');
+        setShowSuccessAlert(true);
+
+
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 3000);
       } else {
-        alert("Korisnik s tim podacima ne postoji");
+        setShowErrorAlert(true); 
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -56,7 +61,7 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" >
       <Box
         sx={{
           marginTop: 8,
@@ -65,19 +70,40 @@ const Login = ({ setIsLoggedIn }) => {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Prijavi se
+        <Typography component="h1" variant="h5" className="white">
+        Log in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Korisničko ime"
-            name="username"
-            autoComplete="username"
-            autoFocus
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="username"
+          autoFocus
+          sx={{
+            color: 'white',
+            borderColor: 'white',
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "white",
+              },
+              "& fieldset": {
+                borderColor: "white",
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: 'white',
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: 'white',
+            },
+            "& input": {
+              color: "white",
+            },
+          }}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -86,18 +112,49 @@ const Login = ({ setIsLoggedIn }) => {
             required
             fullWidth
             name="password"
-            label="Lozinka"
+            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
             value={password}
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+                "& fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: 'white',
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: 'white',
+              },
+              "& input": {
+                color: "white",
+              },
+            }}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" variant="outlined">
-            Prijava
+          <Button type="submit" variant="outlined" sx={{borderColor: 'white', color: 'white', mt:2}}>
+            Log in
           </Button>
         </Box>
       </Box>
+      {showSuccessAlert && (
+        <Alert  icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{marginTop:'2rem'}}>
+       Welcome {username}! You are now logged in. You will be redirected to dashboard in 3 seconds.
+        </Alert>
+      )}
+      {showErrorAlert && ( // Add this line
+        <Alert  icon={<WarningIcon fontSize="inherit" />} severity="error" sx={{marginTop:'2rem'}}>
+        There is no user with that username and password. Try again
+        </Alert>
+        )}
     </Container>
   );
 };

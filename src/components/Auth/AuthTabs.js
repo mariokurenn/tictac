@@ -14,12 +14,11 @@ const AuthTabs = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="Login" />
-        <Tab label="Registracija" />
+      <Tabs value={value} onChange={handleChange} centered  >
+        <Tab label="Login" sx={{color: 'white'}}/>
+        <Tab label="Register"sx={{color: 'white'}} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        {/* Pass setIsLoggedIn as a prop to Login component */}
+      <TabPanel value={value} index={0} >
         <Login setIsLoggedIn={setIsLoggedIn} />
       </TabPanel>
       <TabPanel value={value} index={1}>

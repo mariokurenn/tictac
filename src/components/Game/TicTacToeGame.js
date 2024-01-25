@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import JoinGame from './JoinGame';
+
 import GameBoard from './GameBoard';
 import WinnerOverlay from './WinnerOverlay';
 import { Button } from '@mui/material';
@@ -65,9 +64,8 @@ const TicTacToeGame = ({ userId }) => {
   };
   
   useEffect(() => {
-    const fetchGameInterval = setInterval(fetchGame, 1000); // 5000 ms = 5 seconds
+    const fetchGameInterval = setInterval(fetchGame, 1000);
   
-    // Clean up the interval when the component unmounts
     return () => {
       clearInterval(fetchGameInterval);
     };
@@ -76,8 +74,8 @@ const TicTacToeGame = ({ userId }) => {
   const createGame = async () => {
     try {
       const token = localStorage.getItem('token');
-      const username = localStorage.getItem('username'); // Retrieve the username from local storage
-      const userId = localStorage.getItem('userId'); // Retrieve the user's ID from local storage
+      const username = localStorage.getItem('username');
+      const userId = localStorage.getItem('userId');
       const response = await fetch('https://tictactoe.aboutdream.io/games/', {
         method: 'POST',
         headers: {
@@ -95,7 +93,6 @@ const TicTacToeGame = ({ userId }) => {
       if (!response.ok) {
         throw new Error('Failed to create a new game');
       }
-
       const data = await response.json();
       console.log('Created new game:', data);
       setGame(data);
@@ -121,15 +118,14 @@ const TicTacToeGame = ({ userId }) => {
       if (!response.ok) {
         throw new Error('Failed to make a move');
       }
-  
+
       const updatedGame = await response.json();
-      setGame(updatedGame); // Set the game state before checking for a winner
+      setGame(updatedGame); 
   
       if (updatedGame.winner) {
         setOpenWinnerOverlay(true);
       }
-  
-      // Check if it's the current player's turn before updating the game state
+
       if (updatedGame.turn === game.turn) {
         setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
       } else {
@@ -162,7 +158,7 @@ const TicTacToeGame = ({ userId }) => {
       }
   
       const updatedGame = await response.json();
-      setGame(updatedGame); // Update the game state with the response
+      setGame(updatedGame); 
       makeMove(rowIndex, columnIndex);
     } catch (error) {
       console.error('Error making a move:', error);

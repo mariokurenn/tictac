@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button, Avatar, Dialog,DialogTitle,DialogContent,DialogActions } from '@mui/material';
-
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import FinishedGameBoard from './FinishedGameBoard';
 const FinishedGames = () => {
   const [games, setGames] = useState([]);
@@ -56,15 +56,19 @@ const handleClose = () => {
 
   return (
     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent:'flex-start', gap:'2rem'}}>
+{games.length === 0 ? (
 
-    {games.map((game, index) => (
+      <Typography variant="body1" color="initial" sx={{mt: '1rem', color:'white'}}>Currently you didn't finish any game. As soon as you do they will pop here and you can replay them</Typography>
+    ) : (
+    games.map((game, index) => (
       
       <Card key={index} className='finishedgames-card' sx={{ maxWidth: 345, marginBottom: '1rem', background:'transparent' }}>
         <CardContent>
           <Typography variant="body3" component="div" className='white' style={{marginBottom: '1rem'}}>
             Game ID: {game.id}
           </Typography>
-          <Typography variant="body5" color="text.secondary" className='white'>
+          <Typography variant="body5" color="text.secondary" className='white' sx={{display:'flex'}}>
+          <FiberManualRecordIcon style={{ color: 'green' }} />
             Winner: {game.winner ? game.winner.username : 'No winner yet'}
           </Typography>
          
@@ -84,25 +88,28 @@ const handleClose = () => {
           <Typography variant="body2" color="text.secondary" className='white'>
             Time: {new Date(game.created).toLocaleString()}
           </Typography>
-          <Button onClick={() => handleClickOpen(game)}>Show Game</Button>
+          <Button variant='outlined' onClick={() => handleClickOpen(game)} sx={{mt:2, color:'white'}}>Replay game</Button>
         </CardContent>
       </Card>
-    ))}
+      ))
+     )}
     <Dialog open={open} onClose={handleClose}>
-  <DialogTitle>Game {selectedGame?.id}</DialogTitle>
-  <DialogContent>
-  {selectedGame && <FinishedGameBoard game={selectedGame} />}
-</DialogContent>
-  <DialogActions>
-    <Button onClick={handleClose}>Close</Button>
-  </DialogActions>
-</Dialog>
-    <div style={{width: '100%'}}>
-    <Button  sx={{ml: 1,"&.MuiButtonBase-root:hover": {bgcolor: "transparent"}, color: 'white' }} onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}>Previous</Button>
-    <Button onClick={() => setPage(prevPage => prevPage + 1)}>Next</Button>
-    </div>
-    </div>
-  );
+        <DialogTitle>Game {selectedGame?.id}</DialogTitle>
+        <DialogContent>
+          {selectedGame && <FinishedGameBoard game={selectedGame} />}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+      {games.length > 0 && (
+        <div style={{width: '100%'}}>
+          <Button  sx={{ml: 1,"&.MuiButtonBase-root:hover": {bgcolor: "transparent"}, color: 'white' }} onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}>Previous</Button>
+          <Button sx={{ color: 'white'}} onClick={() => setPage(prevPage => prevPage + 1)}>Next </Button>
+        </div>
+      )}
+  </div>
+);
 };
 
 export default FinishedGames;

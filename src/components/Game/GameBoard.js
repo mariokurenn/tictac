@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Button, Avatar, Dialog,DialogTitle,DialogContent,DialogActions } from '@mui/material';
+import {Typography, Avatar} from '@mui/material';
 
 const GameBoard = ({ board, handleCellClick, firstPlayer, secondPlayer, game, setGame }) => (
   <>
@@ -22,10 +22,8 @@ const GameBoard = ({ board, handleCellClick, firstPlayer, secondPlayer, game, se
           <tr key={rowIndex}>
             {row.map((cell, columnIndex) => (
               <td 
-                key={columnIndex} 
-                onClick={() => handleCellClick(rowIndex, columnIndex)}
-                className="white-border"
-              >
+              key={columnIndex} 
+              onClick={() => handleCellClick(rowIndex, columnIndex)} className="white-border cell">
                 {firstPlayer && cell === firstPlayer.id ? 'X' : 
                  secondPlayer && cell === secondPlayer.id ? 'O' : ''}
               </td>

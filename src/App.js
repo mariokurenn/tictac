@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import AuthTabs from './components/AuthTabs';
+import AuthTabs from './components/Auth/AuthTabs';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
@@ -15,7 +15,9 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <div>
+      
+ <BrowserRouter>
       <Routes>
         <Route
           path="/"
@@ -27,6 +29,8 @@ const App = () => {
         />
       </Routes>
     </BrowserRouter>
+    </div>
+   
   );
 };
 

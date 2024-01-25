@@ -42,3 +42,51 @@
   font-weight: 600;
   margin-bottom: 20px;
 }
+
+.dashboard {
+  padding: 16px;
+  background-color: #fff;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.switch {
+  margin-left: 8px;
+}
+
+.logout-button {
+  background-color: #c02942;
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.join-game-button {
+  background-color: #2196f3;
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.game-list-button {
+  background-color: #ff9800;
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}

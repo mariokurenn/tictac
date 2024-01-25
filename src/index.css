@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -54,4 +55,83 @@ code {
   font-size: 30px;
   font-weight: 600;
   margin-bottom: 20px;
+}
+
+table td {
+  border: 1px solid black;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+}
+
+
+.video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+
+.glassmorphism {
+  background:rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
+}
+.glassmorphism-list{
+  background:rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-content: space-between;
+  flex-wrap: wrap;
+  color: white;
+
+}
+.finishedgames-card{
+  background:rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.5rem;
+  margin-top: 10px;
+  color: white;
+  
+}
+.glassmorphism-input{
+  background:rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
+  color: white !important;
+}
+.glassmorphism-input:focus{
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+.white-border{
+  border: 1px solid white !important;
+  color: white;
+  text-align: center;
+}
+.white{
+  color: white !important;
+}
+#outlined-start-adornment{
+  color: white !important;
+}
+
+.dialog-table td{
+  border: 1px solid black !important;
+  color: black;
+  text-align: center;
 }
